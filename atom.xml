@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-04-09T04:20:17.612Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>John Doe</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sqli-labs知识点梳理</title>
+    <link href="http://yoursite.com/2020/04/10/sqli-labs%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/"/>
+    <id>http://yoursite.com/2020/04/10/sqli-labs知识点梳理/</id>
+    <published>2020-04-10T06:05:27.593Z</published>
+    <updated>2020-04-09T04:20:17.612Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="sqli-labs知识点梳理"><a href="#sqli-labs知识点梳理" class="headerlink" title="sqli-labs知识点梳理"></a>sqli-labs知识点梳理</h1><p>1.没有做任何防护，直接使用union注入就好了。不过先猜测查询语句格式：</p><p><code>select * from [table_name] where id  = &#39;input_id&#39; limit 0,1</code></p><p><code>(select group_concat(table_name) from information_schema.tables where table_schema=database())</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">爆出来的结果</span><br><span class="line">emails,referers,uagents,users </span><br><span class="line"></span><br><span class="line">Host,User,Password,Select_priv,Insert_priv,Update_priv,Delete_priv,Create_priv,Drop_priv,Reload_priv,Shutdown_priv,Process_priv,File_priv,Grant_priv,References_priv,Index_priv,Alter_priv,Show_db_priv,Super_priv,Create_tmp_table_priv,Lock_tables_priv,Execute_priv,Repl_slave_priv,Repl_client_priv,Create_view_priv,Show_view_priv,Create_routine_priv,Alter_routine_priv,Create_user_priv,Event_priv,Trigger_priv,Create_tablespace_priv,Delete_history_priv,ssl_type,ssl_cipher,x509_issuer,x509_subject,max_questions,max_updates,max_connections,max_user_connections,plugin,authentication_string,password_expired,is_role,default_role,max_statement_time </span><br><span class="line"></span><br><span class="line">Dumb,I-kill-you,p@ssword,crappy,stupidity,genious,mob!le,admin,admin1,admin2,admin3,dumbo,admin4</span><br></pre></td></tr></table></figure><p>2.和第一题一样，主要就是改了下查询语句的格式</p><p><code>select * from [table_name] where id  = input_id limit 0,1</code></p><p>去掉了引号，上文的payload就失去了效果</p><p>3.和之前的一样，没有什么特别的地方，就是看到了提示single quote with twist，貌似加了括号？？？</p><p>根据报错信息里面透露的右括号，可以知道</p><p>4.还是有报错，总结下，从几种常用形式来找<code>&#39;input_id&#39;/&quot;input_id&quot;/(&#39;input_id&#39;)/(&quot;input_id&quot;)</code></p><p>在各种形式的payload拼接好后后面输入任意乱码，如果对了就会报错提示你了</p><p>后续操作如上</p><p>5.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;sqli-labs知识点梳理&quot;&gt;&lt;a href=&quot;#sqli-labs知识点梳理&quot; class=&quot;headerlink&quot; title=&quot;sqli-labs知识点梳理&quot;&gt;&lt;/a&gt;sqli-labs知识点梳理&lt;/h1&gt;&lt;p&gt;1.没有做任何防护，直接使用union注入就
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2020/04/10/hello-world/"/>
+    <id>http://yoursite.com/2020/04/10/hello-world/</id>
+    <published>2020-04-10T04:57:17.384Z</published>
+    <updated>2020-04-10T04:57:17.384Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
