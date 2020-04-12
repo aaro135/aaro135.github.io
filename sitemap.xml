@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2020/04/10/hello-world/</loc>
+    <loc>http://yoursite.com/2020/04/10/sqli-labs%25E7%259F%25A5%25E8%25AF%2586%25E7%2582%25B9%25E6%25A2%25B3%25E7%2590%2586/</loc>
     
-    <lastmod>2020-04-10T13:36:06.959Z</lastmod>
+    <lastmod>2020-04-12T08:02:35.495Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2020/04/10/sqli-labs%25E7%259F%25A5%25E8%25AF%2586%25E7%2582%25B9%25E6%25A2%25B3%25E7%2590%2586/</loc>
+    <loc>http://yoursite.com/2020/04/12/sql%25E6%25B3%25A8%25E5%2585%25A5%25E5%2588%2586%25E7%25B1%25BB%25E5%258F%258A%25E4%25BE%258B%25E9%25A2%2598/</loc>
     
-    <lastmod>2020-04-10T09:59:41.260Z</lastmod>
+    <lastmod>2020-04-12T07:55:38.059Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/04/10/hello-world/</loc>
+    
+    <lastmod>2020-04-10T13:36:06.959Z</lastmod>
     
   </url>
   

