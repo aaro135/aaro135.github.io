@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/04/12/img-test/</loc>
+    
+    <lastmod>2020-04-13T03:02:29.672Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/04/10/sqli-labs%25E7%259F%25A5%25E8%25AF%2586%25E7%2582%25B9%25E6%25A2%25B3%25E7%2590%2586/</loc>
     
     <lastmod>2020-04-12T08:02:35.495Z</lastmod>

@@ -89,15 +89,15 @@
 <meta property="og:url" content="http://yoursite.com/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/index.html">
 <meta property="og:site_name" content="咸鱼的学习之旅">
 <meta property="og:description" content="sql注入学习记录观看视频（安全牛课堂）后的记录">
-<meta property="og:image" content="e:/360MoveData/Users/yaha/Documents/sql注入题分析/初见宽字节注入/第一次宽字节注入1-1.png">
-<meta property="og:image" content="e:/360MoveData/Users/yaha/Documents/sql注入题分析/初见宽字节注入/宽字节第一次注入2.png">
-<meta property="og:image" content="e:/360MoveData/Users/yaha/Documents/sql注入题分析/初见宽字节注入/第一次宽字节注入3.png">
-<meta property="og:image" content="e:/360MoveData/Users/yaha/Documents/sql注入题分析/初见宽字节注入/第一次宽字节注入4.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/360MoveData/Users/yaha/Documents/sql%E6%B3%A8%E5%85%A5%E9%A2%98%E5%88%86%E6%9E%90/%E5%88%9D%E8%A7%81%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A51-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/360MoveData/Users/yaha/Documents/sql%E6%B3%A8%E5%85%A5%E9%A2%98%E5%88%86%E6%9E%90/%E5%88%9D%E8%A7%81%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/%E5%AE%BD%E5%AD%97%E8%8A%82%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%B3%A8%E5%85%A52.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/360MoveData/Users/yaha/Documents/sql%E6%B3%A8%E5%85%A5%E9%A2%98%E5%88%86%E6%9E%90/%E5%88%9D%E8%A7%81%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A53.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/360MoveData/Users/yaha/Documents/sql%E6%B3%A8%E5%85%A5%E9%A2%98%E5%88%86%E6%9E%90/%E5%88%9D%E8%A7%81%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A54.png">
 <meta property="article:published_time" content="2020-04-12T07:53:17.594Z">
 <meta property="article:modified_time" content="2020-04-12T07:55:38.059Z">
 <meta property="article:author" content="aaro135">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="e:/360MoveData/Users/yaha/Documents/sql注入题分析/初见宽字节注入/第一次宽字节注入1-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/360MoveData/Users/yaha/Documents/sql%E6%B3%A8%E5%85%A5%E9%A2%98%E5%88%86%E6%9E%90/%E5%88%9D%E8%A7%81%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A51-1.png">
 
 
 
@@ -354,13 +354,13 @@
 <p><a href="http://chinalover.sinaapp.com/SQL-GBK/index.php" target="_blank" rel="noopener">经典例子</a></p>
 <p>这道题就是经典的宽字节注入题，使用了addslashes函数来进行对输入字符的转义。</p>
 <p>可以见到当输入<code>id=1&#39;</code>时，结果是这样的（注意，在hackbar工具中，基本需要对符号进行转码，输入单引号应用%27）</p>
-<p><img src="E:\360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\第一次宽字节注入1-1.png" alt=""></p>
+<p><img src="/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\第一次宽字节注入1-1.png" alt></p>
 <p>所以利用上面所学的知识，只要在前面加上任意一个字符的GBK编码就行（大于128，<code>%aa</code>都可以,现在的GBK编码有变化吗？我用%aa不可以了，%df倒是可以），就可以将<code>&#39;</code>释放出来，如图</p>
-<p><img src="E:\360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\宽字节第一次注入2.png" alt=""></p>
+<p><img src="/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\宽字节第一次注入2.png" alt></p>
 <p>接下来就是常规思路的爆库爆表爆字段爆值(MySQL中information_schema表中含有所有数据库表名列名的信息)。</p>
 <p>先看看有几列,尝试order by 1……..10，看脸，这道题到3报错，而2不报错</p>
-<p><img src="E:\360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\第一次宽字节注入3.png" alt=""></p>
-<p><img src="E:\360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\第一次宽字节注入4.png" alt=""></p>
+<p><img src="/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\第一次宽字节注入3.png" alt></p>
+<p><img src="/2020/04/12/sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB%E5%8F%8A%E4%BE%8B%E9%A2%98/360MoveData\Users\yaha\Documents\sql注入题分析\初见宽字节注入\第一次宽字节注入4.png" alt></p>
 <p>可以看出这道题目是两列</p>
 <p>利用union操作爆库名，看输出列的操作为<code>?id=-1%df%27 union select 1,2 %23</code></p>
 <p>tips:而且我们输入的数字串长度是任意的，输入几个数字，就会出现几个属性，也就是说返回表的列数是等于我们输入的数字个数的，而行数与原数据库表的结构保持一致，原本有3行数据，输入数字串后仍为3行。 </p>
@@ -380,7 +380,7 @@
 <p>函数补充mid(str,1,1)</p>
 <p>left(str,length)</p>
 <p>right(str,length)</p>
-<p>例题:<a href='http://106.12.37.37:8080/level2/' target="_blank" rel="noopener">布尔（带审计）</a></p>
+<p>例题:<a href="http://106.12.37.37:8080/level2/" target="_blank" rel="noopener">布尔（带审计）</a></p>
 <p>response  = requests.get(url,timeout=5)</p>
 <p>response.content.find(‘xxx’) != -1</p>
 <h2 id="基于时间的盲注"><a href="#基于时间的盲注" class="headerlink" title="基于时间的盲注"></a>基于时间的盲注</h2><p>有效果判断，返回结果时间长于设定的秒数</p>
@@ -537,6 +537,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/04/12/img-test/" rel="prev" title="img_test">
+                img_test <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -615,7 +619,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
