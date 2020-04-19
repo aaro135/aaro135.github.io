@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-04-13T03:02:29.672Z</updated>
+  <updated>2020-04-19T15:07:13.080Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记录一下vim的操作</title>
+    <link href="http://yoursite.com/2020/04/19/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8Bvim%E7%9A%84%E6%93%8D%E4%BD%9C/"/>
+    <id>http://yoursite.com/2020/04/19/记录一下vim的操作/</id>
+    <published>2020-04-19T15:05:03.000Z</published>
+    <updated>2020-04-19T15:07:13.080Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="记录一下vim的操作"><a href="#记录一下vim的操作" class="headerlink" title="记录一下vim的操作"></a>记录一下vim的操作</h1><p>vim的功能还是挺强的，尤其是加上了各种插件之后，对它的操作做些记录，免去自己查找得繁琐</p><p>操作参考大佬博客，下面只是记了些自己用到的，侵删:<a href="https://harttle.land/2016/08/08/vim-search-in-file.html" target="_blank" rel="noopener">https://harttle.land/2016/08/08/vim-search-in-file.html</a> </p><p>大佬总结的图片：</p><img src="/2020/04/19/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8Bvim%E7%9A%84%E6%93%8D%E4%BD%9C/vim-key.png" class title="大佬总结的vim操作"><h2 id="查找替换"><a href="#查找替换" class="headerlink" title="查找替换"></a>查找替换</h2><p>查找操作支持正则匹配，只需要在normal模式下按下<code>/</code>就可以进入查找模式了，<code>?</code>也可以</p><p>查找回车用<code>\r</code>,查找换行用<code>\n</code></p><p><code>\c</code>选项表示大小写敏感</p><p>下面的复制加入到.vimrc文件里就行了</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot; 设置默认进行大小写不敏感查找</span><br><span class="line">set ignorecase</span><br><span class="line">&quot; 如果有一个大写字母，则切换到大小写敏感查找</span><br><span class="line">set smartcase</span><br></pre></td></tr></table></figure><p><code>g*</code>可以查找当前你选中的单词，或者你光标所在位置的后一个单词，只会查找完全相同的，不会去查找含有相同字母，却不同的单词，比如<code>hello</code>和<code>hellofriend</code></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;记录一下vim的操作&quot;&gt;&lt;a href=&quot;#记录一下vim的操作&quot; class=&quot;headerlink&quot; title=&quot;记录一下vim的操作&quot;&gt;&lt;/a&gt;记录一下vim的操作&lt;/h1&gt;&lt;p&gt;vim的功能还是挺强的，尤其是加上了各种插件之后，对它的操作做些记录，免去自
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>img_test</title>
