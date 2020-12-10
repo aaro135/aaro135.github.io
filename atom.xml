@@ -49,27 +49,6 @@
   </entry>
   
   <entry>
-    <title>pdf_test</title>
-    <link href="http://yoursite.com/2020/04/20/pdf-test/"/>
-    <id>http://yoursite.com/2020/04/20/pdf-test/</id>
-    <published>2020-04-20T11:45:39.000Z</published>
-    <updated>2020-04-20T12:41:06.849Z</updated>
-    
-    <content type="html"><![CDATA[<embed width="800" height="600" src="test.pdf">   ]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;embed width=&quot;800&quot; height=&quot;600&quot; src=&quot;test.pdf&quot;&gt;   
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>记录一下vim的操作</title>
     <link href="http://yoursite.com/2020/04/19/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8Bvim%E7%9A%84%E6%93%8D%E4%BD%9C/"/>
     <id>http://yoursite.com/2020/04/19/记录一下vim的操作/</id>
